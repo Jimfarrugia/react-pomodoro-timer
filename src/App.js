@@ -1,9 +1,3 @@
-//! Failing tests:
-//! 14. When a break countdown reaches zero (NOTE: timer MUST reach 00:00), and a new countdown begins,
-//! 		the element with the id of "timer-label" should display a string indicating a session has begun.
-//! 15. When a break countdown reaches zero (NOTE: timer MUST reach 00:00), a new session countdown should begin,
-//! 		counting down from the value currently displayed in the id="session-length" element.
-
 import { useState, useEffect, useRef } from "react";
 import Break from "./components/Break";
 import Session from "./components/Session";
@@ -19,6 +13,21 @@ function App() {
 	const isActive = intervalId !== null;
 
 	useEffect(() => setTimeLeft(sessionLength), [sessionLength]);
+
+	useEffect(() => {
+		if (timeLeft === 0) {
+			audioElement.current.volume = 0.1;
+			audioElement.current.play();
+			if (!isBreakTime) {
+				setIsBreakTime(true);
+				setTimeLeft(breakLength);
+			}
+			if (isBreakTime) {
+				setIsBreakTime(false);
+				setTimeLeft(sessionLength);
+			}
+		}
+	}, [breakLength, sessionLength, timeLeft, isBreakTime]);
 
 	const decrementBreakLength = () => {
 		const newBreakLength = breakLength - 60;
@@ -54,23 +63,8 @@ function App() {
 			setIntervalId(null);
 		} else {
 			const newIntervalId = setInterval(() => {
-				setTimeLeft(prevTimeLeft => {
-					const newTimeLeft = prevTimeLeft - 1;
-					if (newTimeLeft >= 0) {
-						return newTimeLeft;
-					}
-					audioElement.current.volume = 0.1;
-					audioElement.current.play();
-					if (!isBreakTime) {
-						setIsBreakTime(true); //! this switch doesn't seem to be working -> break timer repeats
-						return breakLength;
-					}
-					if (isBreakTime) {
-						setIsBreakTime(false); //! this switch doesn't seem to be working -> break timer repeats
-						return sessionLength;
-					}
-				});
-			}, 1000); // TODO: change to '1000'
+				setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+			}, 1000);
 			setIntervalId(newIntervalId);
 		}
 	};
