@@ -2,7 +2,7 @@ import moment from "moment";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const Break = ({ breakLength, decrementBreakLength, incrementBreakLength }) => {
-	const breakLengthInMinutes = moment.duration(breakLength, "s").minutes();
+	const breakLengthInMinutes = moment.duration(breakLength, "s").asMinutes();
 
 	return (
 		<div id="break">

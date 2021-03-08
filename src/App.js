@@ -1,3 +1,9 @@
+//! Failing tests:
+//! 14. When a break countdown reaches zero (NOTE: timer MUST reach 00:00), and a new countdown begins,
+//! 		the element with the id of "timer-label" should display a string indicating a session has begun.
+//! 15. When a break countdown reaches zero (NOTE: timer MUST reach 00:00), a new session countdown should begin,
+//! 		counting down from the value currently displayed in the id="session-length" element.
+
 import { useState, useEffect, useRef } from "react";
 import Break from "./components/Break";
 import Session from "./components/Session";
@@ -7,7 +13,7 @@ function App() {
 	const audioElement = useRef(null);
 	const [intervalId, setIntervalId] = useState(null);
 	const [isBreakTime, setIsBreakTime] = useState(false);
-	const [breakLength, setBreakLength] = useState(300);
+	const [breakLength, setBreakLength] = useState(60 * 5);
 	const [sessionLength, setSessionLength] = useState(60 * 25);
 	const [timeLeft, setTimeLeft] = useState(sessionLength);
 	const isActive = intervalId !== null;
@@ -28,8 +34,19 @@ function App() {
 		}
 	};
 
-	const incrementBreakLength = () => setBreakLength(breakLength + 60);
-	const incrementSessionLength = () => setSessionLength(sessionLength + 60);
+	const incrementBreakLength = () => {
+		const newBreakLength = breakLength + 60;
+		if (newBreakLength <= 60 * 60) {
+			setBreakLength(newBreakLength);
+		}
+	};
+
+	const incrementSessionLength = () => {
+		const newSessionLength = sessionLength + 60;
+		if (newSessionLength <= 60 * 60) {
+			setSessionLength(newSessionLength);
+		}
+	};
 
 	const onStartStop = () => {
 		if (isActive) {
@@ -46,14 +63,14 @@ function App() {
 					audioElement.current.play();
 					if (!isBreakTime) {
 						setIsBreakTime(true); //! this switch doesn't seem to be working -> break timer repeats
-						setTimeLeft(breakLength);
+						return breakLength;
 					}
 					if (isBreakTime) {
 						setIsBreakTime(false); //! this switch doesn't seem to be working -> break timer repeats
-						setTimeLeft(sessionLength);
+						return sessionLength;
 					}
 				});
-			}, 10); // TODO: change to '1000'
+			}, 1000); // TODO: change to '1000'
 			setIntervalId(newIntervalId);
 		}
 	};
