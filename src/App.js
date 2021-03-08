@@ -4,6 +4,7 @@ import Session from "./components/Session";
 import Timer from "./components/Timer";
 
 function App() {
+	const audioElement = useRef(null);
 	const [intervalId, setIntervalId] = useState(null);
 	const [isBreakTime, setIsBreakTime] = useState(false);
 	const [breakLength, setBreakLength] = useState(300);
@@ -15,14 +16,16 @@ function App() {
 
 	const decrementBreakLength = () => {
 		const newBreakLength = breakLength - 60;
-		newBreakLength < 0 ? setBreakLength(0) : setBreakLength(newBreakLength);
+		if (newBreakLength > 0) {
+			setBreakLength(newBreakLength);
+		}
 	};
 
 	const decrementSessionLength = () => {
 		const newSessionLength = sessionLength - 60;
-		newSessionLength < 0
-			? setSessionLength(0)
-			: setSessionLength(newSessionLength);
+		if (newSessionLength > 0) {
+			setSessionLength(newSessionLength);
+		}
 	};
 
 	const incrementBreakLength = () => setBreakLength(breakLength + 60);
@@ -39,6 +42,8 @@ function App() {
 					if (newTimeLeft >= 0) {
 						return newTimeLeft;
 					}
+					audioElement.current.volume = 0.1;
+					audioElement.current.play();
 					if (!isBreakTime) {
 						setIsBreakTime(true); //! this switch doesn't seem to be working -> break timer repeats
 						setTimeLeft(breakLength);
@@ -54,6 +59,7 @@ function App() {
 	};
 
 	const onReset = () => {
+		audioElement.current.load();
 		clearInterval(intervalId);
 		setIntervalId(null);
 		setIsBreakTime(false);
@@ -76,14 +82,18 @@ function App() {
 				incrementSessionLength={incrementSessionLength}
 			/>
 			<Timer
-				sessionLength={sessionLength}
-				breakLength={breakLength}
 				isBreakTime={isBreakTime}
 				isActive={isActive}
 				timeLeft={timeLeft}
 				onStartStop={onStartStop}
 				onReset={onReset}
 			/>
+			<audio id="beep" ref={audioElement}>
+				<source
+					src="https://onlineclock.net/audio/options/default.mp3"
+					type="audio/mpeg"
+				/>
+			</audio>
 		</div>
 	);
 }
