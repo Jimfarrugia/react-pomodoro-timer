@@ -10,7 +10,7 @@ const Timer = ({ isBreakTime, isActive, timeLeft, onStartStop, onReset }) => {
 		.format("mm:ss", { trim: false });
 
 	return (
-		<div id="timer">
+		<div id="timer" style={isBreakTime ? { backgroundColor: "#19C97D" } : {}}>
 			<h2 id="timer-label">{isBreakTime ? "Break" : "Session"}</h2>
 			<p id="time-left">{formattedTimeLeft}</p>
 			<div id="timer-controls">

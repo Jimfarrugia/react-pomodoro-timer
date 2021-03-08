@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Break from "./components/Break";
 import Session from "./components/Session";
 import Timer from "./components/Timer";
+import Footer from "./components/Footer";
 
 function App() {
 	const audioElement = useRef(null);
@@ -80,7 +81,7 @@ function App() {
 	};
 
 	return (
-		<div className="App">
+		<div id="container">
 			<h1>Pomodoro Timer</h1>
 			<Break
 				breakLength={breakLength}
@@ -99,6 +100,7 @@ function App() {
 				onStartStop={onStartStop}
 				onReset={onReset}
 			/>
+			<Footer />
 			<audio id="beep" ref={audioElement}>
 				<source
 					src="https://onlineclock.net/audio/options/default.mp3"

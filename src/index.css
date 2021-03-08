@@ -5,9 +5,82 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	color: #000;
+	background-color: #f5f5dc;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+a,
+a:visited {
+	color: #0077cc;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	background: none;
+	color: #000;
+	font-size: 1.25em;
+	padding: 0;
+	margin: 0 10px;
+	border: none;
+	border-style: none;
+	outline: none;
+	cursor: pointer;
+}
+
+button:hover {
+	color: #777;
+}
+
+h1 {
+	font-size: 2.25em;
+	margin: 45px 0 15px;
+}
+
+h3 {
+	margin: 15px 0;
+}
+
+#container {
+	text-align: center;
+}
+
+#break,
+#session {
+	display: inline-block;
+	padding: 15px;
+}
+
+#break span,
+#session span {
+	font-size: 1.5em;
+}
+
+#timer {
+	background-color: #ffa500;
+	width: fit-content;
+	margin: 30px auto 45px;
+	padding: 30px 45px;
+	border-radius: 15px;
+}
+
+#timer h2 {
+	margin: 0 0 15px;
+}
+
+#time-left {
+	font-size: 2em;
+	margin: 0;
+}
+
+#timer-controls {
+	margin: 25px 0 0;
+}
+
+#page-footer {
+	font-size: 0.9em;
+	margin: 75px 0 30px;
 }
