@@ -17,7 +17,6 @@ function App() {
 
 	useEffect(() => {
 		if (timeLeft === 0) {
-			audioElement.current.volume = 0.1;
 			audioElement.current.play();
 			if (!isBreakTime) {
 				setIsBreakTime(true);
@@ -102,10 +101,7 @@ function App() {
 			/>
 			<Footer />
 			<audio id="beep" ref={audioElement}>
-				<source
-					src="https://onlineclock.net/audio/options/default.mp3"
-					type="audio/mpeg"
-				/>
+				<source src="/beep.mp3" type="audio/mpeg" />
 			</audio>
 		</div>
 	);
