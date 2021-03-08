@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const Break = () => {
 	const [breakLength, setBreakLength] = useState(300);
@@ -16,11 +17,11 @@ const Break = () => {
 		<div>
 			<h3 id="break-label">Break Length</h3>
 			<button id="break-decrement" onClick={decrementBreakLength}>
-				-
+				<FaArrowDown />
 			</button>
 			<span id="break-length">{breakLength}</span>
 			<button id="break-increment" onClick={incrementBreakLength}>
-				+
+				<FaArrowUp />
 			</button>
 		</div>
 	);
