@@ -29,14 +29,14 @@ const Timer = ({ sessionLength, breakLength }) => {
 					}
 					if (!isBreakTime) {
 						setTimeLeft(breakLength);
-						setIsBreakTime(true);
+						setIsBreakTime(true); //! this switch doesn't seem to be working
 					}
 					if (isBreakTime) {
 						setTimeLeft(sessionLength);
-						setIsBreakTime(false);
+						setIsBreakTime(false); //! this switch doesn't seem to be working
 					}
 				});
-			}, 100);
+			}, 100); // TODO: change to '1000'
 			setIntervalId(newIntervalId);
 		}
 	};
