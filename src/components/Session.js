@@ -1,25 +1,15 @@
-import { useState } from "react";
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import moment from "moment";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-const Session = () => {
-	const [sessionLength, setSessionLength] = useState(60 * 25);
-
-	const decrementSessionLength = () => {
-		const newSessionLength = sessionLength - 60;
-		newSessionLength < 0
-			? setSessionLength(0)
-			: setSessionLength(newSessionLength);
-	};
-
-	const incrementSessionLength = () => {
-		setSessionLength(sessionLength + 60);
-	};
-
+const Session = ({
+	sessionLength,
+	decrementSessionLength,
+	incrementSessionLength,
+}) => {
 	const sessionLengthInMinutes = moment.duration(sessionLength, "s").minutes();
 
 	return (
-		<div>
+		<div id="session">
 			<h3 id="session-label">Session Length</h3>
 			<button id="session-decrement" onClick={decrementSessionLength}>
 				<FaArrowDown />

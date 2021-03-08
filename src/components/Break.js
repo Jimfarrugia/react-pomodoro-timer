@@ -1,23 +1,11 @@
-import { useState } from "react";
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import moment from "moment";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-const Break = () => {
-	const [breakLength, setBreakLength] = useState(300);
-
-	const decrementBreakLength = () => {
-		const newBreakLength = breakLength - 60;
-		newBreakLength < 0 ? setBreakLength(0) : setBreakLength(newBreakLength);
-	};
-
-	const incrementBreakLength = () => {
-		setBreakLength(breakLength + 60);
-	};
-
+const Break = ({ breakLength, decrementBreakLength, incrementBreakLength }) => {
 	const breakLengthInMinutes = moment.duration(breakLength, "s").minutes();
 
 	return (
-		<div>
+		<div id="break">
 			<h3 id="break-label">Break Length</h3>
 			<button id="break-decrement" onClick={decrementBreakLength}>
 				<FaArrowDown />
