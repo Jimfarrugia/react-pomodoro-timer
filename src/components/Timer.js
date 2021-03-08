@@ -4,15 +4,7 @@ import { FaPlay, FaPause, FaRedo } from "react-icons/fa";
 
 momentDurationFormatSetup(moment);
 
-const Timer = ({
-	sessionLength,
-	breakLength,
-	isBreakTime,
-	isActive,
-	timeLeft,
-	onStartStop,
-	onReset,
-}) => {
+const Timer = ({ isBreakTime, isActive, timeLeft, onStartStop, onReset }) => {
 	const formattedTimeLeft = moment
 		.duration(timeLeft, "s")
 		.format("mm:ss", { trim: false });

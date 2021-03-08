@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Break from "./components/Break";
 import Session from "./components/Session";
 import Timer from "./components/Timer";
@@ -40,26 +40,26 @@ function App() {
 						return newTimeLeft;
 					}
 					if (!isBreakTime) {
+						setIsBreakTime(true); //! this switch doesn't seem to be working -> break timer repeats
 						setTimeLeft(breakLength);
-						setIsBreakTime(true); //! this switch doesn't seem to be working
 					}
 					if (isBreakTime) {
+						setIsBreakTime(false); //! this switch doesn't seem to be working -> break timer repeats
 						setTimeLeft(sessionLength);
-						setIsBreakTime(false); //! this switch doesn't seem to be working
 					}
 				});
-			}, 100); // TODO: change to '1000'
+			}, 10); // TODO: change to '1000'
 			setIntervalId(newIntervalId);
 		}
 	};
 
 	const onReset = () => {
-		// clear the timer interval
-		// set intervalId to null
-		// set isBreakTime to false
-		// reset sessionLength to 25min
-		// reset breakLength to 5min
-		// reset the timer to 25min
+		clearInterval(intervalId);
+		setIntervalId(null);
+		setIsBreakTime(false);
+		setSessionLength(60 * 25);
+		setBreakLength(60 * 5);
+		setTimeLeft(60 * 25);
 	};
 
 	return (
